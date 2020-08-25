@@ -11,6 +11,6 @@ namespace dartau_demoapp.Controllers
     [ApiController]
     public class GreetingController : ControllerBase
     {
-        public string Get(int id) { return "Hello world"; }
+        public string Get(int id) { return "Hello world from Dart"; }
     }
 }
