@@ -1,0 +1,38 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dartau-demoapp
+  labels:
+    app: dartau-demoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dartau-demoapp
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: dartau-demoapp
+    spec:
+      containers:
+      - name: dartau-demoapp
+        image: gammondev.azurecr.io/dartau-demoapp:$BUILD_ID
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dartau-demoapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: dartau-demoapp
