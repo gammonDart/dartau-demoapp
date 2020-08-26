@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DependencyCollector;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dartau_demoapp.Controllers
@@ -11,6 +9,14 @@ namespace dartau_demoapp.Controllers
     [ApiController]
     public class GreetingController : ControllerBase
     {
-        public string Get(int id) { return "Hello world from Dart Au blah blah blah"; }
+        public string Get(int id)
+        {
+            TelemetryConfiguration configuration = TelemetryConfiguration.CreateDefault();
+            configuration.InstrumentationKey = "61b7fb78-d207-411d-b7c5-59df48e5703f";
+            var telemetryClient = new TelemetryClient(configuration);
+            telemetryClient.TrackTrace(string.Format("[dartau-devops] GreetingController.Get(id): {0}", id));
+
+            return "Hello world from Dart Au blah blah blah";
+        }
     }
 }
