@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: dartau-demoapp
-        image: gammondev.azurecr.io/dartau-demoapp:$BUILD_ID
+        image: gammondev.azurecr.io/dartau-devops:$BUILD_ID
         ports:
         - containerPort: 80
 ---
